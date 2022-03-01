@@ -12,7 +12,11 @@ library(lubridate)
 library(scales)
 ```
 
+Before proceeding to knit, please ensure that you have the following packages installed:
 
+1. tidyverse
+2. lubridate
+3. scales
 
 # Data loading
 
@@ -322,12 +326,12 @@ summary(lm( log(Overall_Mortality_Rate) ~ Date,
 
 #### Comments
 
-In start contrast to the linear model in question (1), this model is really good! The p value for the F statistic is a rounding error from zero, implying that date certainly has a linear effect on the log of mortality rate. In addition, the adjusted R-squared is just $0.7806$, which implies we haven't overfit our data. Yay!
+In start contrast to the linear model in question (1), this model is really good! The p value for the F statistic is a rounding error from zero, implying that date certainly has a linear effect on the log of mortality rate. In addition, the adjusted R-squared is just $0.7806$, which implies we haven't over-fit our data. Yay!
 
 
 # Conclusion and Bias Analysis
 
-There are a lot of potential sources of bias in this project. First and foremost, the data is reliant on hospitals and states self-reporting COVID statistics. As has been all too clear over the course of the pandemic, many crucial statistics are unreported or even faked in the case of Florida's governor DeSantis. It is most likely that bad outcomes are underreported in this data. Moreover, the mortality and death statistics are only for those people who were diagnosed with COVID at the time of death. I can almost guarentee that this doesn not accurately reflect the true death toll of the pandemic. My own personal biases come in the interpretations and analyses of results. I am by nature quite cynical, and am unlikely to believe data even when it is genuine. My specualtions that are riddled throughout this project (while in my opinion reasonable) might easily be debunked upon further research into a causal analysis.
+There are a lot of potential sources of bias in this project. First and foremost, the data is reliant on hospitals and states self-reporting COVID statistics. As has been all too clear over the course of the pandemic, many crucial statistics are unreported or even faked in the case of Florida's governor DeSantis. It is most likely that bad outcomes are under reported in this data. Moreover, the mortality and death statistics are only for those people who were diagnosed with COVID at the time of death. I can almost guarantee that this does not accurately reflect the true death toll of the pandemic. My own personal biases come in the interpretations and analyses of results. I am by nature quite cynical, and am unlikely to believe data even when it is genuine. My speculations that are riddled throughout this project (while in my opinion reasonable) might easily be debunked upon further research into a causal analysis.
 
 This project was a lot work, especially the data import and cleaning phases. I learned the most regarding file management and reading .csv files from GitHub. I built custom functions to assist me in pulling the data, which while inefficient did a pretty good job for my first try. Thanks so much for reading my project, and have a good rest of your day :)
 
