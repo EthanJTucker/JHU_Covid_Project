@@ -18,9 +18,9 @@ Before proceeding to knit, please ensure that you have the following packages in
 2. lubridate
 3. scales
 
-# Data loading
+# Data loading and Description
 
-I chose to use the data in the repository "csse_covid_19_daily_reports_us" from the Johns-Hopkins COVID-19 GitHub page. There are a whole lot of .csv files, each which contain a daily summary of COVID activity (deaths, recovered, etc.) in 59 US states and territories. We will do an in-depth look at variables once the data are loaded. This is a bit of an arduous process, which makes it a good Data Scienc project! I ended up building a function that starts with an empty data frame, and sequentially calls full_join() from dplyr to add on all the new rows from each new data frame. Before combining data, we first add a new variable called "date" which was not in the original data. Fortunately the nomenclature of each .csv is identical (mm-dd-yyyy), so we can pull the date from the URL of each individual data file. I include comments with this importing process in the code chunk below. Note that the data importing takes quite a while because it joins 687 different files together - it might take a couple minutes. Go get a coffee / tea! If you can think of a more efficient way to perform this task without loading the data into memory, please leave me a note (I'm new to readr).
+I chose to use the data in the repository "csse_covid_19_daily_reports_us" from the Johns-Hopkins COVID-19 GitHub page. There are a whole lot of .csv files, each which contain a daily summary of COVID activity (deaths, recovered, etc.) in 59 US states and territories. We will do an in-depth look at variables once the data are loaded. This is a bit of an arduous process, which makes it a good Data Science project! I ended up building a function that starts with an empty data frame, and sequentially calls full_join() from dplyr to add on all the new rows from each new data frame. Before combining data, we first add a new variable called "date" which was not in the original data. Fortunately the nomenclature of each .csv is identical (mm-dd-yyyy), so we can pull the date from the URL of each individual data file. I include comments with this importing process in the code chunk below. Note that the data importing takes quite a while because it joins 687 different files together - it might take a couple minutes. Go get a coffee / tea! If you can think of a more efficient way to perform this task without loading the data into memory, please leave me a note (I'm new to readr).
 
 ```{r Load Data, message=FALSE, warning = FALSE}
 # Data citation: 
@@ -188,6 +188,21 @@ covidData %>%
 
 The cleaning process in this section was rather straightforward - all we did was parse some variables into their proper types, create some new variables that will be useful in our visualizations (I know this is technically wrangling, but I needed to do it here), and remove the variables that won't be used in this project.  I removed nine variables total, and added two. I've made a concerted effort to make my code as legible and thus reproducible as possible here. In the wrangling and visualization-creation process I call some filter(!is.na(varName)) commands which also qualify as cleaning. I wanted to make note of that here for posterity.
 
+The final variables in the dataset:
+
+- Province_State: The province or state the record pertains to
+- Confirmed: Aggregate confirmed covid cases
+- Deaths: Aggregate deaths 
+- Incident_Rate: A measure of prevalence vs. community vulnerability
+- People_Tested: Aggregate tests administered
+- Peopl_Hospitalized: Aggregate people admitted to hospitals
+- Mortality_Rate: Aggregate liklihood of death with confirmed case
+- Testing_Rate: Tests administered per X people (unclear)
+- Hospitalization_Rate: Hospitalizations per X people (unclear)
+- Date: Variable I made, just the date file corresponds to
+- New_Deaths: Variable I made, change in deaths per day
+- New_Hospitalizations: Variable I made, change in hospitalizations per day
+
 # Question One: 
 
 ## How has the lethality of COVID-19 changed over time?
@@ -330,6 +345,8 @@ In start contrast to the linear model in question (1), this model is really good
 
 
 # Conclusion and Bias Analysis
+
+How has the lethality of COVID-19 changed over time? It's complicated. Deaths/day have had a sinusoidal bifurcated manifestation over the course of the pandemic. While it is possible to fit a non-linear model to the extant data, it is unclear how useful such a model would be at explaining, or even predicting, variance in the response. How has mortality rate of COVID changed as the pandemic continued? This we get a pretty satisfying answer to: as time increases linearly, the mortality rate decreases logarithically. 
 
 There are a lot of potential sources of bias in this project. First and foremost, the data is reliant on hospitals and states self-reporting COVID statistics. As has been all too clear over the course of the pandemic, many crucial statistics are unreported or even faked in the case of Florida's governor DeSantis. It is most likely that bad outcomes are under reported in this data. Moreover, the mortality and death statistics are only for those people who were diagnosed with COVID at the time of death. I can almost guarantee that this does not accurately reflect the true death toll of the pandemic. My own personal biases come in the interpretations and analyses of results. I am by nature quite cynical, and am unlikely to believe data even when it is genuine. My speculations that are riddled throughout this project (while in my opinion reasonable) might easily be debunked upon further research into a causal analysis.
 
